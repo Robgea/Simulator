@@ -1,7 +1,13 @@
 import random, time, csv
 
-inputCsv = input('What is the name of the CSV?  ')
+inputCSV = input('What is the name of the CSV baseline you would like to use?  ')
+outputCSV = input('What is the name of the CSV output? ')
 
+if not outputCSV.endswith('.csv'):
+  outputCSV = outputCSV + '.csv'
+
+
+resultsFile = open(outputCSV, 'w', newline = '')
 
 #pull from CSV
 
