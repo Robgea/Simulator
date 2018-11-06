@@ -36,7 +36,7 @@ def judgeCalculator():
     wrongDec = 0
     runCount = 0
     name = row[0]
-    roundGoal = row[1]
+    roundGoal = int(row[1])
 
     if runCount < roundGoal:
       runCount += 1
