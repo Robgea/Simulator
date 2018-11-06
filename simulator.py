@@ -3,18 +3,14 @@ import random, time, csv
 inputCSV = input('What is the name of the CSV baseline you would like to use?  ')
 outputCSV = input('What is the name of the CSV output? ')
 jvar = int(input("What is the judge variance from 'correct' you would like to see? "))
+iterGoal = int(input('How many runs of the data do you want? '))
 
 
-if not outputCSV.endswith('.csv'):
-  outputCSV = outputCSV + '.csv'
+
 
 if not inputCSV.endswith('.csv'):
   inputCSV = inputCSV + '.csv'
 
-resultsFile = open(outputCSV, 'w', newline = '')
-outputWrite = csv.writer(resultsFile)
-outputWrite.writerow(['Name', 'Rounds Judged','Minority Decisions', 'Majority Decisions', 'Unaminously Right Decisions', 'Unaminously wrong decisions', 
-  'right 2-1 Decisons', 'wrong 2-1 decisions', 'Right Ballot', 'Wrong Ballot' ])
 
 
 
@@ -37,7 +33,6 @@ def judgeCalculator():
     minCount = 0
     rightDec = 0
     wrongDec = 0
-    runCount = 0
     name = row[0]
     roundGoal = int(row[1])
     print(name)
@@ -82,7 +77,20 @@ def judgeCalculator():
       
 
 
+def multipleRuns():
+  global iterGoal
+  runCount = 00
+  for x in range(itergoal + 1):
+    runCount += 1
+    outputCSV = outputCSV + str(runCount) + '.csv'
+    resultsFile = open(outputCSV, 'w', newline = '')
+    outputWrite = csv.writer(resultsFile)
+    outputWrite.writerow(['Name', 'Rounds Judged','Minority Decisions', 'Majority Decisions', 'Unaminously Right Decisions', 'Unaminously wrong decisions', 
+      'right 2-1 Decisons', 'wrong 2-1 decisions', 'Right Ballot', 'Wrong Ballot' ])
+    judgeCalculator()
+    resultsFile.close()
+    CSVslice = outputCSV.find(int)
+    outputCSV = outputCSV[0:CSVslice]
 
-judgeCalculator()
+multipleRuns()
 
-resultsFile.close()
