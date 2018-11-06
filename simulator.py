@@ -25,7 +25,10 @@ inputReader = csv.reader(inputFile)
 
 def judgeCalculator():
   global jvar
+  print(jvar)
+  print('Calculations starting!')
   for row in inputReader:
+    print('New Row!')
     unam_right = 0
     unam_wrong = 0
     split_right = 0
@@ -37,9 +40,9 @@ def judgeCalculator():
     runCount = 0
     name = row[0]
     roundGoal = int(row[1])
-
-    if runCount < roundGoal:
-      runCount += 1
+    print(name)
+    print(roundGoal)
+    for x in range(roundGoal):
       judge1 = random.randint(1,100)
       judge2 = random.randint(1,100)
       judge3 = random.randint(1,100)
@@ -49,10 +52,10 @@ def judgeCalculator():
         wrongDec += 1
       else:
         rightDec += 1
-      for int in panel:
-        if int <= jvar:
+      for dec in panel:
+        if dec <= jvar:
           panelDec += 2
-        elif int > jvar:
+        elif dec > jvar:
           panelDec += 1
       if panelDec == 6:
         unam_wrong += 1
@@ -73,12 +76,13 @@ def judgeCalculator():
         unam_right += 1
         majCount += 1
 
-    else:
-      outputWrite.writerow[name,str(runCount),str(minCount),str(majCount),str(unam_right),str(unam_wrong),str(split_right),str(split_wrong),str(rightDec),str(wrongDec)]
-      continue
+    
+    print(name,str(roundGoal),str(minCount),str(majCount),str(unam_right),str(unam_wrong),str(split_right),str(split_wrong),str(rightDec),str(wrongDec))
+    outputWrite.writerow([name,str(roundGoal),str(minCount),str(majCount),str(unam_right),str(unam_wrong),str(split_right),str(split_wrong),str(rightDec),str(wrongDec)])
+      
 
 
 
 judgeCalculator()
 
-outputWrite.close()
+resultsFile.close()
