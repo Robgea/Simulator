@@ -14,13 +14,15 @@ if not inputCSV.endswith('.csv'):
 
 
 
-inputFile = open(inputCSV)
-inputReader = csv.reader(inputFile)
 
 
 
-def judgeCalculator():
+
+def judgeCalculator(outputWrite):
   global jvar
+  global inputCSV
+  inputFile = open(inputCSV)
+  inputReader = csv.reader(inputFile)
   print(jvar)
   print('Calculations starting!')
   for row in inputReader:
@@ -74,23 +76,24 @@ def judgeCalculator():
     
     print(name,str(roundGoal),str(minCount),str(majCount),str(unam_right),str(unam_wrong),str(split_right),str(split_wrong),str(rightDec),str(wrongDec))
     outputWrite.writerow([name,str(roundGoal),str(minCount),str(majCount),str(unam_right),str(unam_wrong),str(split_right),str(split_wrong),str(rightDec),str(wrongDec)])
-      
+  inputFile.close()
 
 
 def multipleRuns():
   global iterGoal
+  global outputCSV
+  outputSave = outputCSV
   runCount = 00
-  for x in range(itergoal + 1):
+  for x in range(iterGoal):
     runCount += 1
-    outputCSV = outputCSV + str(runCount) + '.csv'
+    outputCSV = outputSave + str(runCount) + '.csv'
     resultsFile = open(outputCSV, 'w', newline = '')
     outputWrite = csv.writer(resultsFile)
     outputWrite.writerow(['Name', 'Rounds Judged','Minority Decisions', 'Majority Decisions', 'Unaminously Right Decisions', 'Unaminously wrong decisions', 
       'right 2-1 Decisons', 'wrong 2-1 decisions', 'Right Ballot', 'Wrong Ballot' ])
-    judgeCalculator()
+    judgeCalculator(outputWrite)
     resultsFile.close()
-    CSVslice = outputCSV.find(int)
-    outputCSV = outputCSV[0:CSVslice]
+
 
 multipleRuns()
 
